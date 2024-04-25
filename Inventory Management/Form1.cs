@@ -20,6 +20,12 @@ namespace Inventory_Management
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'stock_ManagementDataSet.Product' table. You can move, or remove it, as needed.
+            this.productTableAdapter.Fill(this.stock_ManagementDataSet.Product);
+            // TODO: This line of code loads data into the 'stock_ManagementDataSet.Category' table. You can move, or remove it, as needed.
+            this.categoryTableAdapter.Fill(this.stock_ManagementDataSet.Category);
+            // TODO: This line of code loads data into the 'stock_ManagementDataSet.Supplier' table. You can move, or remove it, as needed.
+            this.supplierTableAdapter.Fill(this.stock_ManagementDataSet.Supplier);
             // TODO: This line of code loads data into the 'stock_ManagementDataSet.Users' table. You can move, or remove it, as needed.
             this.usersTableAdapter.Fill(this.stock_ManagementDataSet.Users);
 
@@ -173,6 +179,8 @@ namespace Inventory_Management
 
         private void btnshowuser_Click(object sender, EventArgs e)
         {
+
+            //searching in the supplier table
             SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True");
             con.Open();
             SqlCommand cmd = new SqlCommand("Select * from Users where user_id=@user_id OR user_name=@user_name", con);
@@ -184,6 +192,160 @@ namespace Inventory_Management
             da.Fill(dt);
             dataGridView1.DataSource = dt;
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from Supplier where supplier_id=@supplier_id or adress like @adress", con);
+                cmd.Parameters.AddWithValue("@supplier_id", supplier_idTextBox.Text);
+                cmd.Parameters.AddWithValue("@adress", adressTextBox.Text);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridView2.DataSource = dt;
+            }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void product_idLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnshowuser_Click_1(object sender, EventArgs e)
+        {
+
+            SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True");
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Select * from Users where user_id=@user_id OR user_name=@user_name", con);
+            cmd.Parameters.AddWithValue("@user_id", user_idTextBox.Text);
+            cmd.Parameters.AddWithValue("@user_name", user_nameTextBox.Text);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True");
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Select * from Users ", con);
+            cmd.Parameters.AddWithValue("@user_id", user_idTextBox.Text);
+            cmd.Parameters.AddWithValue("@user_name", user_nameTextBox.Text);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //displaying in the supplier Table
+            SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True");
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Select * from supplier ", con);
+            cmd.Parameters.AddWithValue("@user_id", user_idTextBox.Text);
+            cmd.Parameters.AddWithValue("@user_name", user_nameTextBox.Text);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView2.DataSource = dt;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //searching in the categories table
+            using (SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from Category where Category_id=@Category_id OR Category_name=@Category_name", con);
+                cmd.Parameters.AddWithValue("@category_id", category_idTextBox.Text);
+                cmd.Parameters.AddWithValue("@category_name", ( category_nameTextBox.Text));
+
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridView3.DataSource = dt;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            //displaying in the categories table
+            using (SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from Category", con);
+                cmd.Parameters.AddWithValue("@category_id", category_idTextBox.Text);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridView3.DataSource = dt;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //searching in the products table
+            using (SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from product where Product_id = @product_id or product_name=@product_name OR serialnumber=@serialnumber", con);
+                cmd.Parameters.AddWithValue("@product_id", product_idTextBox.Text);
+                cmd.Parameters.AddWithValue("@product_name",  product_nameTextBox.Text);
+                cmd.Parameters.AddWithValue("@serialnumber",serialnumberTextBox.Text);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                productDataGridView.DataSource = dt;
+            }
+        }
+       private void serialnumberTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //displaying in the products table
+            using (SqlConnection con = new SqlConnection("Data Source=ABIEL;Initial Catalog=Stock_Management;Integrated Security=True;TrustServerCertificate=True"))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from product", con);
+                cmd.Parameters.AddWithValue("@product_id", product_idTextBox.Text);
+                cmd.Parameters.AddWithValue("@product_name", product_nameTextBox.Text);
+                cmd.Parameters.AddWithValue("@serialnumber", serialnumberTextBox.Text);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                productDataGridView.DataSource = dt;
+            }
         }
     }
 }
